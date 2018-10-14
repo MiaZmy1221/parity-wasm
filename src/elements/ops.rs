@@ -295,6 +295,9 @@ pub enum Instruction {
 	F32ReinterpretI32,
 	F64ReinterpretI64,
 
+	//add a new instruction
+	I32Test,
+
 	I32Extend8S,
 	I32Extend16S,
 	I64Extend8S,
@@ -742,6 +745,9 @@ pub mod opcodes {
 	pub const I64REINTERPRETF64: u8 = 0xbd;
 	pub const F32REINTERPRETI32: u8 = 0xbe;
 	pub const F64REINTERPRETI64: u8 = 0xbf;
+
+	//add a new instruction
+	pub const I32TEST: u8 = 0x4f; //begin from 0x4e
 
 	pub const I32_EXTEND8_S: u8 = 0xc0;
 	pub const I32_EXTEND16_S: u8 = 0xc1;
@@ -1270,6 +1276,9 @@ impl Deserialize for Instruction {
 				F64CONVERTUI64 => F64ConvertUI64,
 				F64PROMOTEF32 => F64PromoteF32,
 
+				//add a new instruction
+				I32TEST => I32Test,
+
 				I32REINTERPRETF32 => I32ReinterpretF32,
 				I64REINTERPRETF64 => I64ReinterpretF64,
 				F32REINTERPRETI32 => F32ReinterpretI32,
@@ -1279,6 +1288,7 @@ impl Deserialize for Instruction {
 				I64_EXTEND8_S => I64Extend8S,
 				I64_EXTEND16_S => I64Extend16S,
 				I64_EXTEND32_S => I64Extend32S,
+
 
 				ATOMIC_PREFIX => return deserialize_atomic(reader),
 				SIMD_PREFIX => return deserialize_simd(reader),
@@ -1874,6 +1884,9 @@ impl Serialize for Instruction {
 			F32ReinterpretI32 => op!(writer, F32REINTERPRETI32),
 			F64ReinterpretI64 => op!(writer, F64REINTERPRETI64),
 
+			//add a new instruction
+			I32Test => op!(writer, I32TEST),
+
 			I32Extend8S => op!(writer, I32_EXTEND8_S),
 			I32Extend16S => op!(writer, I32_EXTEND16_S),
 			I64Extend8S => op!(writer, I64_EXTEND8_S),
@@ -2378,6 +2391,9 @@ impl fmt::Display for Instruction {
 			F32ReinterpretI32 => write!(f, "f32.reinterpret/i32"),
 			F64ReinterpretI64 => write!(f, "f64.reinterpret/i64"),
 
+			//add a new instruction
+			I32Test => write!(f, "i32.test"),
+
 			I32Extend8S => write!(f, "i32.extend8_s"),
 			I32Extend16S => write!(f, "i32.extend16_s"),
 			I64Extend8S => write!(f, "i64.extend8_s"),
@@ -2661,6 +2677,7 @@ fn ifelse() {
 #[test]
 fn display() {
 	let instruction = Instruction::GetLocal(0);
+	println!("Instruction is {:?}", instruction); 
 	assert_eq!("get_local 0", format!("{}", instruction));
 
 	let instruction = Instruction::F64Store(0, 24);

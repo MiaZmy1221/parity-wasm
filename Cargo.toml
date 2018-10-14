@@ -1,10 +1,10 @@
 [package]
 name = "parity-wasm"
-version = "0.34.0"
+version = "0.35.0"
 authors = ["Nikolay Volf <nikvolf@gmail.com>", "Svyatoslav Nikolsky <svyatonik@yandex.ru>", "Sergey Shulepov <s.pepyakin@gmail.com>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/paritytech/parity-wasm"
+repository = "https://github.com/MiaZmy1221/parity-wasm"
 homepage = "https://github.com/paritytech/parity-wasm"
 documentation = "https://paritytech.github.io/parity-wasm/parity_wasm/"
 description = "WebAssembly binary format serialization/deserialization/interpreter"
