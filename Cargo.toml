@@ -1,7 +1,8 @@
 [package]
 name = "parity-wasm-cp"
-version = "0.0.1"
-authors = ["Nikolay Volf <nikvolf@gmail.com>", "Svyatoslav Nikolsky <svyatonik@yandex.ru>", "Sergey Shulepov <s.pepyakin@gmail.com>"]
+version = "0.1.0"
+authors = ["Nikolay Volf <nikvolf@gmail.com>", "Svyatoslav Nikolsky <svyatonik@yandex.ru>", "Sergey Shulepov <s.pepyakin@gmail.com>", 
+"mengya <zhang.9407@osu.edu>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/MiaZmy1221/parity-wasm"
