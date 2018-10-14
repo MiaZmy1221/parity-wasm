@@ -309,7 +309,7 @@ impl<F> ModuleBuilder<F> where F: Invoke<elements::Module> {
 	/// Import entry builder
 	/// # Examples
 	/// ```
-	/// use parity_wasm::builder::module;
+	/// use parity_wasm_cp::builder::module;
 	///
 	/// let module = module()
 	///    .import()
@@ -340,8 +340,8 @@ impl<F> ModuleBuilder<F> where F: Invoke<elements::Module> {
 	/// Export entry builder
 	/// # Examples
 	/// ```
-	/// use parity_wasm::builder::module;
-	/// use parity_wasm::elements::Instruction::*;
+	/// use parity_wasm_cp::builder::module;
+	/// use parity_wasm_cp::elements::Instruction::*;
 	///
 	/// let module = module()
 	///    .global()
@@ -363,8 +363,8 @@ impl<F> ModuleBuilder<F> where F: Invoke<elements::Module> {
 	/// Glboal entry builder
 	/// # Examples
 	/// ```
-	/// use parity_wasm::builder::module;
-	/// use parity_wasm::elements::Instruction::*;
+	/// use parity_wasm_cp::builder::module;
+	/// use parity_wasm_cp::elements::Instruction::*;
 	///
 	/// let module = module()
 	///    .global()
@@ -497,7 +497,7 @@ impl<F> Invoke<elements::DataSegment> for ModuleBuilder<F>
 /// # Examples
 ///
 /// ```
-/// use parity_wasm::builder;
+/// use parity_wasm_cp::builder;
 ///
 /// let module = builder::module()
 ///     .function()

@@ -40,6 +40,10 @@ impl Deserialize for Instructions {
 
 		loop {
 			let instruction = Instruction::deserialize(reader)?;
+			
+			//print every instruction
+			println!("Instruction: {:?}", instruction); 
+
 			if instruction.is_terminal() {
 				block_count -= 1;
 			} else if instruction.is_block() {

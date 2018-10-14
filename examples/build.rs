@@ -2,12 +2,12 @@
 // Builder api introduced as a method for fast generation of
 // different small wasm modules.
 
-extern crate parity_wasm;
+extern crate parity_wasm_cp;
 
 use std::env;
 
-use parity_wasm::builder;
-use parity_wasm::elements;
+use parity_wasm_cp::builder;
+use parity_wasm_cp::elements;
 
 fn main() {
 
@@ -43,5 +43,5 @@ fn main() {
 		.build();
 
 	// Module structure can be serialzed to produce a valid wasm file
-	parity_wasm::serialize_to_file(&args[1], module).unwrap();
+	parity_wasm_cp::serialize_to_file(&args[1], module).unwrap();
 }

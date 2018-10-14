@@ -1,7 +1,7 @@
-extern crate parity_wasm;
+extern crate parity_wasm_cp;
 
 use std::env;
-use parity_wasm::elements::Section;
+use parity_wasm_cp::elements::Section;
 
 fn main() {
 	let args = env::args().collect::<Vec<_>>();
@@ -10,7 +10,7 @@ fn main() {
 		return;
 	}
 
-	let module = parity_wasm::deserialize_file(&args[1]).expect("Failed to load module");
+	let module = parity_wasm_cp::deserialize_file(&args[1]).expect("Failed to load module");
 
 	println!("Module sections: {}", module.sections().len());
 
