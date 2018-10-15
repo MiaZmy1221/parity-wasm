@@ -301,6 +301,8 @@ pub enum Instruction {
 	
 	//add a new instruction
 	I32Test,
+	ReadNode(u32),
+	WriteNode(u32),
 }
 
 impl Instruction {
@@ -505,6 +507,8 @@ pub mod opcodes {
 
 	//add a new instruction
 	pub const I32TEST: u8 = 0xc0; //begin from 0xbf
+	pub const READNODE: u8 = 0xc1; //begin from 0xbf
+	pub const WRITENODE: u8 = 0xc2; //begin from 0xbf
 }
 
 impl Deserialize for Instruction {
@@ -799,6 +803,9 @@ impl Deserialize for Instruction {
 
 				//add a new instruction
 				I32TEST => I32Test,
+				//GETLOCAL => GetLocal(VarUint32::deserialize(reader)?.into()),
+				READNODE => ReadNode(VarUint32::deserialize(reader)?.into()),
+				WRITENODE => WriteNode(VarUint32::deserialize(reader)?.into()),
 
 				_ => { return Err(Error::UnknownOpcode(val)); }
 			}
@@ -1120,6 +1127,13 @@ impl Serialize for Instruction {
 
 			//add a new instruction
 			I32Test => op!(writer, I32TEST),
+			//according to GetLocal
+			ReadNode(index) => op!(writer, READNODE, {
+				VarUint32::from(index).serialize(writer)?;
+			}),
+			WriteNode(index) => op!(writer, WRITENODE, {
+				VarUint32::from(index).serialize(writer)?;
+			}),
 		}
 
 		Ok(())
@@ -1384,6 +1398,9 @@ impl fmt::Display for Instruction {
 
 			//add a new instruction
 			I32Test => write!(f, "i32.test"),
+			//GetLocal(index) => fmt_op!(f, "get_local", index),
+			ReadNode(index) => fmt_op!(f, "read_node", index),
+			WriteNode(index) => fmt_op!(f, "write_node", index),
 		}
 	}
 }
