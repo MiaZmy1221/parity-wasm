@@ -3,7 +3,7 @@ use std::vec::Vec;
 use std::borrow::ToOwned;
 use byteorder::{LittleEndian, ByteOrder};
 
-use super::{Deserialize, Serialize, Error, Uint32, External};
+use super::{Deserialize, Serialize, Error, Uint32, External, InitExpr, DataSegment, serialize,};
 use super::section::{
 	Section, CodeSection, TypeSection, ImportSection, ExportSection, FunctionSection,
 	GlobalSection, TableSection, ElementSection, DataSection, MemorySection
@@ -51,7 +51,7 @@ impl Module {
 			sections: sections, ..Default::default()
 		}
 	}
-
+	
 	/// Destructure the module, yielding sections
 	pub fn into_sections(self) -> Vec<Section> {
 		self.sections
@@ -106,6 +106,7 @@ impl Module {
 
 	/// Imports section reference, if any.
 	pub fn import_section(&self) -> Option<&ImportSection> {
+		println!("import section is called");
 		for section in self.sections() {
 			if let &Section::Import(ref import_section) = section { return Some(import_section); }
 		}
@@ -176,13 +177,32 @@ impl Module {
 		}
 		None
 	}
-
 	/// Data section mutable reference, if any.
 	pub fn data_section_mut(&mut self) -> Option<&mut DataSection> {
 		for section in self.sections_mut() {
 			if let Section::Data(ref mut section) = *section { return Some(section); }
 		}
 		None
+	}
+	
+	// add data section
+	pub fn add_data_section(&mut self, value: Vec<u8>) -> &mut Vec<Section> {
+		let sec = &mut self.sections;
+		for section in sec.clone() {
+			if let Section::Data(ref section) = section {
+				println!("data section exists");
+				println!("section is:{:?}", section);
+				return sec;
+			}
+		}
+		println!("data section does not exist");
+		let data_section = DataSection::with_entries(
+
+			vec![DataSegment::new(0u32, InitExpr::empty(), value)]
+
+		);
+		sec.push(Section::Data(data_section));
+		sec
 	}
 
 	/// Element section reference, if any.

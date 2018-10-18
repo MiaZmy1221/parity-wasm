@@ -2,6 +2,7 @@ use io;
 use std::vec::Vec;
 use std::string::String;
 use std::borrow::ToOwned;
+
 use super::{
 	Serialize,
 	Deserialize,
@@ -22,6 +23,7 @@ use super::{
 	CountedListWriter,
 	External,
 	serialize,
+	InitExpr,
 };
 
 use super::types::Type;
@@ -549,6 +551,7 @@ impl MemorySection {
 	pub fn entries_mut(&mut self) -> &mut Vec<MemoryType> {
 		&mut self.0
 	}
+
 }
 
 impl Deserialize for MemorySection {
@@ -781,6 +784,14 @@ impl Deserialize for DataSection {
 
 	fn deserialize<R: io::Read>(reader: &mut R) -> Result<Self, Self::Error> {
 		Ok(DataSection(read_entries(reader)?))
+		/*
+		let data_section = DataSection::with_entries(
+
+			vec![DataSegment::new(0u32, InitExpr::empty(), vec![0u8; 16])]
+
+		);
+		Ok(data_section)
+		*/
 	}
 }
 

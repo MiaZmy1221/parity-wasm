@@ -17,9 +17,18 @@ fn main() {
 
 	// Here we load module using dedicated for this purpose
 	// `deserialize_file` function (which works only with modules)
-	println!("Before module");
-	let module = parity_wasm_cp::deserialize_file(&args[1]).expect("Failed to load module");
-	println!("Module part is: {:?}", module.code_section());
+	let mut module = parity_wasm_cp::deserialize_file(&args[1]).expect("Failed to load module");
+	println!("Module code section is: {:?}", module.data_section());
+	println!("Module memory section is: {:?}", module.memory_section());
+
+	//let sections = module.sections_mut();
+	//println!("Module sections is: {:?}", sections);
+
+	let buf = vec![0u8; 16];
+	let sections = module.add_data_section(buf);
+	println!("Module sections is: {:?}", sections);
+
+	
 
 /*
 
