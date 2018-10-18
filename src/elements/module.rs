@@ -106,7 +106,7 @@ impl Module {
 
 	/// Imports section reference, if any.
 	pub fn import_section(&self) -> Option<&ImportSection> {
-		println!("import section is called");
+		//println!("import section is called");
 		for section in self.sections() {
 			if let &Section::Import(ref import_section) = section { return Some(import_section); }
 		}
