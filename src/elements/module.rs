@@ -3,7 +3,7 @@ use std::vec::Vec;
 use std::borrow::ToOwned;
 use byteorder::{LittleEndian, ByteOrder};
 
-use super::{Deserialize, Serialize, Error, Uint32, External, InitExpr, DataSegment, serialize,};
+use super::{Deserialize, Serialize, Error, Uint32, External, InitExpr, DataSegment, serialize, Instruction, Instructions};
 use super::section::{
 	Section, CodeSection, TypeSection, ImportSection, ExportSection, FunctionSection,
 	GlobalSection, TableSection, ElementSection, DataSection, MemorySection
@@ -196,9 +196,13 @@ impl Module {
 			}
 		}
 		println!("data section does not exist");
+		//let mut instructions = Vec::new();
+		//instructions.push(Instruction::I32Const(0));
+		//instructions.push(Instruction::End);
+		
 		let data_section = DataSection::with_entries(
 
-			vec![DataSegment::new(0u32, InitExpr::empty(), value)]
+			vec![DataSegment::new(0u32, InitExpr::new(vec![Instruction::I32Const(0), Instruction::End]), value)]
 
 		);
 		sec.push(Section::Data(data_section));
